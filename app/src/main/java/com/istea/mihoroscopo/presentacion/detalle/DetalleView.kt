@@ -32,6 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.navigation.NavHostController
 import com.istea.mihoroscopo.repository.Horoscopo
 import com.istea.mihoroscopo.repository.Signo
 
@@ -39,6 +40,7 @@ import com.istea.mihoroscopo.repository.Signo
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetalleView (
+    navController : NavHostController,
     modifier: Modifier = Modifier,
     state : DetalleEstado,
     onAction: (DetalleIntencion)->Unit
@@ -57,7 +59,9 @@ fun DetalleView (
                 ),
                 title = { Text(text = "Horoscopo") },
                 navigationIcon = {
-                    IconButton(onClick = {onAction(DetalleIntencion.IrParaAtras)
+                    IconButton(onClick = {
+                        onAction(DetalleIntencion.IrParaAtras)
+                        navController.popBackStack()
 
                     }) {
                         Icon(
@@ -113,7 +117,7 @@ fun DescripcionView(signo: Signo){
     Card(
         colors = CardDefaults.cardColors(
             contentColor = MaterialTheme.colorScheme.secondary,
-            containerColor = Color.Blue
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         ),
         modifier = Modifier.padding(20.dp)
     ) {
